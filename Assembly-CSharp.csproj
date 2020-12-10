@@ -65,6 +65,10 @@
   <ItemGroup>
     <Compile Include="Assets\03.Scripts\AStar.cs" />
     <Compile Include="Assets\03.Scripts\AStarTile.cs" />
+    <Compile Include="Assets\03.Scripts\CSV\CSVFileCommon.cs" />
+    <Compile Include="Assets\03.Scripts\CSV\CSVFileWriter.cs" />
+    <Compile Include="Assets\03.Scripts\CSV\CSVReader.cs" />
+    <Compile Include="Assets\03.Scripts\Map\MapSave.cs" />
     <Compile Include="Assets\03.Scripts\TileButton.cs" />
     <Compile Include="Assets\GameManager.cs" />
     <Reference Include="UnityEngine">
