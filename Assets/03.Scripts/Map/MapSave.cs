@@ -9,6 +9,8 @@ public class MapSave : MonoBehaviour
     [SerializeField] string fileName;
     [SerializeField] Tilemap tileMap;
 
+    [SerializeField] Tile[] tiles;
+
     string path;
 
     List<Dictionary<string, object>> saveData = new List<Dictionary<string, object>>();
@@ -48,13 +50,15 @@ public class MapSave : MonoBehaviour
             writer.WriteRow(columns);
             columns.Clear();
 
+            string type;
+
             for (int i = ((int)size.y / 2 - 1); i > -(size.y / 2) - 1; i--) //중앙을 기준으로 위
             {
                 //j = -18 / 2 = -9               -9 < 9             9++
                 for (int j = -(int)size.x / 2; j < size.x / 2; j++) //중앙을 기준으로 오른쪽
                 {
-                    Debug.Log($"Pos : {j}, {i} " + tileMap.GetTile(new Vector3Int(j, i, 0)));
-                    columns.Add(tileMap.GetTile(new Vector3Int(j, i, 0)).ToString());
+                    Debug.Log($"Pos : {j}, {i} " + tileMap.GetTile(new Vector3Int(j, i, 0)).name);
+                    columns.Add(tileMap.GetTile(new Vector3Int(j, i, 0)).name.ToString());
                 }
 
                 writer.WriteRow(columns); //줄바꿈
@@ -71,6 +75,8 @@ public class MapSave : MonoBehaviour
             saveData = new List<Dictionary<string, object>>();
             saveData = CSVReader.Read("MapData/" + fileName);
         }
+
+        ApplyTileMapToData();
     }
 
     public void ApplyTileMapToData()
@@ -78,12 +84,44 @@ public class MapSave : MonoBehaviour
         Vector3 size = tileMap.size;
         Vector3Int cellPos;
 
-        for (int i = ((int)size.y / 2 - 1); i > -(size.y / 2) - 1; i--) //중앙을 기준으로 위
+        Tile changeTile = tiles[0];
+
+        Debug.Log(size);
+
+        //4 ~ -6
+        for (int i = ((int)size.y / 2 - 1); i > -(size.y / 2) - 1; i--) //  Ground (AStarTile) yyyyyy
         {
             //j = -18 / 2 = -9               -9 < 9             9++
-            for (int j = -(int)size.x / 2; j < size.x / 2; j++) //중앙을 기준으로 오른쪽
+            for (int j = -(int)size.x / 2; j < size.x / 2; j++) // xxxxxxxx
             {
-                Debug.Log($"Pos : {j}, {i} " + tileMap.GetTile(new Vector3Int(j, i, 0)));
+                Debug.Log($"Pos : {j}, {i} " + tileMap.GetTile(new Vector3Int(j, i, 0)).name);
+                cellPos = new Vector3Int(j, i, 0);
+
+                switch(saveData[Mathf.Abs(i - 4)]["_" + (j + 9)]) //0 ~ 17
+                {
+                    case "Ground":
+                        changeTile = tiles[0];
+                        break;
+
+                    case "Start":
+                        changeTile = tiles[1];
+                        break;
+
+                    case "End":
+                        changeTile = tiles[2];
+                        break;
+
+                    case "Tower":
+                        changeTile = tiles[3];
+                        break;
+
+                    case "Path":
+                        changeTile = tiles[4];
+                        break;
+                }
+
+                tileMap.SetTile(cellPos, changeTile);
+                
             }
 
         }

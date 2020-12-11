@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
-public enum TileType { START, END, TOWER, Path }
+public enum TileType { START, END, TOWER, PATH, GROUND }
 
 public class AStar : MonoBehaviour
 {

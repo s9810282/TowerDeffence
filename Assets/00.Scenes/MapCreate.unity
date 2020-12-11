@@ -374,6 +374,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fileName: Test
   tileMap: {fileID: 1542795271}
+  tiles:
+  - {fileID: 11400000, guid: f9e1ed20c500aec40a9da1be7ba27514, type: 2}
+  - {fileID: 11400000, guid: ca04ca01967a4b241adce4d4b5afa159, type: 2}
+  - {fileID: 11400000, guid: 9bcecf405611eba4d89cf12064b330eb, type: 2}
+  - {fileID: 11400000, guid: a88158d49474fa845b526fd6fe20d055, type: 2}
+  - {fileID: 11400000, guid: 76d911c93eaaf8b44b29ffe1d9bb0745, type: 2}
 --- !u!4 &484372608
 Transform:
   m_ObjectHideFlags: 0
