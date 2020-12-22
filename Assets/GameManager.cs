@@ -19,6 +19,21 @@ public class Node
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+                instance = FindObjectOfType<GameManager>();
+
+            return instance;
+        }
+    }
+
+
+
+
     public Vector2Int bottomLeft, topRight, startPos, targetPos;
     public List<Node> FinalNodeList;
     public bool allowDiagonal, dontCrossCorner;
@@ -27,7 +42,12 @@ public class GameManager : MonoBehaviour
     Node[,] NodeArray;
     Node StartNode, TargetNode, CurNode;
     List<Node> OpenList, ClosedList;
-    
+
+    private void Awake()
+    {
+        PathFinding();
+    }
+
 
     public void PathFinding()
     {
@@ -134,7 +154,8 @@ public class GameManager : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if(FinalNodeList.Count != 0) for (int i = 0; i < FinalNodeList.Count - 1; i++)
+        if(FinalNodeList.Count != 0) 
+            for (int i = 0; i < FinalNodeList.Count - 1; i++)
                 Gizmos.DrawLine(new Vector2(FinalNodeList[i].x, FinalNodeList[i].y), new Vector2(FinalNodeList[i + 1].x, FinalNodeList[i + 1].y));
     }
 }

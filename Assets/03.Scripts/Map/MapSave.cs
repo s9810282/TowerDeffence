@@ -7,7 +7,9 @@ using UnityEngine.Tilemaps;
 public class MapSave : MonoBehaviour
 {
     [SerializeField] string fileName;
+
     [SerializeField] Tilemap tileMap;
+    [SerializeField] Tilemap wallTileMap;
 
     [SerializeField] Tile[] tiles;
 
@@ -52,6 +54,8 @@ public class MapSave : MonoBehaviour
 
             string type;
 
+            //ㄴPath Tower, Wall 구분해야함 3레이어
+            
             for (int i = ((int)size.y / 2 - 1); i > -(size.y / 2) - 1; i--) //중앙을 기준으로 위
             {
                 //j = -18 / 2 = -9               -9 < 9             9++
@@ -65,8 +69,33 @@ public class MapSave : MonoBehaviour
                 columns.Clear();
             }
 
+            writer.WriteRow(columns); //줄바꿈
+            columns.Clear();
+
+
+            //Wall tileMap
+            for (int i = ((int)size.y / 2 - 1); i > -(size.y / 2) - 1; i--) //중앙을 기준으로 위
+            {
+                //j = -18 / 2 = -9               -9 < 9             9++
+                for (int j = -(int)size.x / 2; j < size.x / 2; j++) //중앙을 기준으로 오른쪽
+                {
+                    Debug.Log($"Pos : {j}, {i} " + wallTileMap.GetTile(new Vector3Int(j, i, 0)).name);
+                    columns.Add(wallTileMap.GetTile(new Vector3Int(j, i, 0)).name.ToString());
+                }
+
+                writer.WriteRow(columns); //줄바꿈
+                columns.Clear();
+            }
+
         }
     }
+
+
+
+
+
+
+
 
     public void LoadCSVData()
     {
@@ -78,6 +107,8 @@ public class MapSave : MonoBehaviour
 
         ApplyTileMapToData();
     }
+
+
 
     public void ApplyTileMapToData()
     {
@@ -120,8 +151,7 @@ public class MapSave : MonoBehaviour
                         break;
                 }
 
-                tileMap.SetTile(cellPos, changeTile);
-                
+                tileMap.SetTile(cellPos, changeTile);               
             }
 
         }
