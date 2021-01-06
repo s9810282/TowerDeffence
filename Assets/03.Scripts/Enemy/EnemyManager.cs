@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] Transform startPoint;
-    [SerializeField] List<string> monsterList;
+    [SerializeField] List<int> monsterList;
 
     [SerializeField] float spawnDelayTime;
 
@@ -28,8 +28,8 @@ public class EnemyManager : MonoBehaviour
         WaitForSeconds waitTime = new WaitForSeconds(spawnDelayTime);
         
         while(monsterList.Count > 0)
-        {
-            GameObject monster = ObjectPool.Instance.GetObject();
+        { 
+            GameObject monster = ObjectPool.Instance.GetObject((MonsterType)monsterList[0]);
             monsterList.RemoveAt(0);
 
             yield return waitTime;

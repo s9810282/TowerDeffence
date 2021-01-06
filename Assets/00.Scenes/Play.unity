@@ -368,38 +368,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 1290573206}
-  monsterList:
-  - 1
-  - 1
-  - 11
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  spawnDelayTime: 0.25
+  monsterList: 010000000200000003000000010000000200000003000000030000000300000002000000020000000100000001000000010000000100000002000000010000000300000001000000020000000200000003000000020000000200000001000000010000000200000003000000030000000300000001000000
+  spawnDelayTime: 0.5
 --- !u!4 &499518460
 Transform:
   m_ObjectHideFlags: 0
@@ -815,7 +785,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fbfd03237dbb3642ac7574278472959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolingObjectPrefab: {fileID: 2739751012514011353, guid: 4d3f210590d14754b81321937e27c1b2,
+  monster_A_PoolingPrefab: {fileID: 2739751012514011353, guid: 4d3f210590d14754b81321937e27c1b2,
+    type: 3}
+  monster_B_PoolingPrefab: {fileID: 2739751012514011353, guid: 575569b14cb2a654d965e20df9d26e26,
+    type: 3}
+  monster_C_PoolingPrefab: {fileID: 2739751012514011353, guid: 3a638ce6d74abb548a3bf6388076489e,
     type: 3}
   parent: {fileID: 564387244}
   count: 15
