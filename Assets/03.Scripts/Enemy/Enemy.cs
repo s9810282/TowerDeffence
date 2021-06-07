@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using Monster;
+
 public class Enemy : MonoBehaviour
 {
     [SerializeField] Node targetNode;
     [SerializeField] List<Node> targetNodeList;
 
-    [SerializeField] float speed;
+    [SerializeField] SpriteRenderer spriteRenderer;
+
+    [SerializeField] EnemyInfo enemyInfo;
 
     int nodeCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        targetNodeList = GameManager.Instance.FinalNodeList;
+        targetNodeList = PathManager.Instance.FinalNodeList;
 
         nodeCount = 0;
         transform.position = new Vector3(targetNodeList[nodeCount].x, targetNodeList[nodeCount].y, 0);
@@ -22,15 +26,14 @@ public class Enemy : MonoBehaviour
         nodeCount++;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetNodeList[nodeCount].x, targetNodeList[nodeCount].y, 0), Time.deltaTime * speed);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(targetNodeList[nodeCount].x, targetNodeList[nodeCount].y, 0), Time.deltaTime * enemyInfo.speed);
 
-        if(transform.position == new Vector3(targetNodeList[nodeCount].x, targetNodeList[nodeCount].y, 0))
+        if (transform.position == new Vector3(targetNodeList[nodeCount].x, targetNodeList[nodeCount].y, 0))
         {
             if (nodeCount == targetNodeList.Count - 1)
-                return;
+                ObjectPool.Instance.ReturnObject(gameObject, enemyInfo.enemyType);
 
             nodeCount++;
         }
